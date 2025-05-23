@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Tokenizer {
-    private StringBuilder buffer = new StringBuilder();
+    private final StringBuilder buffer = new StringBuilder();
     private final List<Token> tokens = new ArrayList<>();
     private TokenType suspectedTokenType;
     private int bufferStartPosition;
