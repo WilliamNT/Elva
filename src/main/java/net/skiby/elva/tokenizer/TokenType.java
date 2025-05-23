@@ -5,6 +5,7 @@ public enum TokenType {
     IDENTIFIER,
     SYMBOL,
     WHITESPACE,
-    END,
+    LPAREN,
+    RPAREN,
     UNKNOWN
 }

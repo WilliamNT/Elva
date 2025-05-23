@@ -2,6 +2,8 @@ package net.skiby.elva.tokenizer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class Tokenizer {
     private final StringBuilder buffer = new StringBuilder();
@@ -41,27 +43,37 @@ public class Tokenizer {
 
         if (hasNext()) {
             var nextCharacter = peek(1);
+            var nextType = TokenizerUtils.identifyTokenType(nextCharacter);
 
-            if (suspectedTokenType != TokenizerUtils.identifyTokenType(nextCharacter)) {
+            if (suspectedTokenType != nextType) {
                 if (wouldBeValidFloat(currentCharacter, nextCharacter)) {
                     return;
                 } else if (wouldBeValidIdentifier(currentCharacter, nextCharacter)) {
                     return;
                 }
 
-                tokenizeBuffer();
-                suspectedTokenType = TokenizerUtils.identifyTokenType(nextCharacter);
-                bufferStartPosition = currentPosition + 1;
+                tokenizeBufferContents();
+                resetBuffer(nextType);
+            } else {
+                if (wouldBeValidSymbol(currentCharacter, nextCharacter)) {
+                    tokenizeBufferContents();
+                    resetBuffer(nextType);
+                }
             }
         } else {
-            tokenizeBuffer();
+            tokenizeBufferContents();
         }
     }
 
-    private void tokenizeBuffer() {
+    private void tokenizeBufferContents() {
         final var token = new Token(buffer.toString(), suspectedTokenType, bufferStartPosition + 1, currentPosition + 1);
         tokens.add(token);
         buffer.setLength(0);
+    }
+
+    private void resetBuffer(TokenType suspectedType) {
+        suspectedTokenType = suspectedType;
+        bufferStartPosition = currentPosition + 1;
     }
 
     private boolean wouldBeValidFloat(char current, char next) {
@@ -86,6 +98,10 @@ public class Tokenizer {
         }
 
         return suspectedTokenType == TokenType.IDENTIFIER;
+    }
+
+    private boolean wouldBeValidSymbol(char current, char next) {
+        return suspectedTokenType == TokenType.SYMBOL && TokenizerUtils.isSymbol(current);
     }
 
     public static String reconstruct(List<Token> tokens) {

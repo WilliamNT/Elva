@@ -12,13 +12,17 @@ public class TokenizerUtils {
             return TokenType.IDENTIFIER;
         } else if (isSymbol(c)) {
             return TokenType.SYMBOL;
+        } else if (c == '(') {
+            return TokenType.LPAREN;
+        } else if (c == ')') {
+            return TokenType.RPAREN;
         }
 
         return TokenType.UNKNOWN;
     }
 
     public static boolean isSymbol(char c) {
-        var symbols = Set.of('+', '-', '*', '/', ',');
+        var symbols = Set.of('+', '-', '*', '/', ',', '=');
         return symbols.contains(c);
     }
 

@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         var t = new Tokenizer();
 
-        var input = "var x = 555,5555 * 5,5;";
+        var input = "var x = 555,5555 * 5,5 + (5 + 5);";
         var tokens = t.tokenize(input);
 
         for (Token token : tokens) {

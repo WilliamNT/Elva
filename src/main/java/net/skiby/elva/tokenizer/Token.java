@@ -1,6 +1,7 @@
 package net.skiby.elva.tokenizer;
 
 import java.util.Objects;
+import java.util.Set;
 
 public class Token {
     public final String value;
@@ -22,16 +23,16 @@ public class Token {
             case IDENTIFIER -> "IDENT";
             case SYMBOL -> "SYMBOL";
             case WHITESPACE -> "WHITESPACE";
-            case END -> "END";
+            case LPAREN -> "LPAREN";
+            case RPAREN -> "RPAREN";
             case UNKNOWN -> "UNKNOWN";
         };
 
-        if (type == TokenType.END) {
-            return "<END />";
-        } else if (type == TokenType.WHITESPACE) {
+        final var singleTags = Set.of(TokenType.WHITESPACE, TokenType.LPAREN, TokenType.RPAREN);
+        if (singleTags.contains(type)) {
             return String.format("<%s start=\"%s\" end=\"%s\"/>", tag, startPosition, endPosition);
-        }else {
-            return String.format("<%s start=\"%s\" end=\"%s\">%s<%s/>", tag, startPosition, endPosition, value, tag);
+        } else {
+            return String.format("<%s start=\"%s\" end=\"%s\">%s</%s>", tag, startPosition, endPosition, value, tag);
         }
     }
 
