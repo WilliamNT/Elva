@@ -2,8 +2,6 @@ package net.skiby.elva.tokenizer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 
 public class Tokenizer {
     private final StringBuilder buffer = new StringBuilder();
@@ -55,7 +53,7 @@ public class Tokenizer {
                 tokenizeBufferContents();
                 resetBuffer(nextType);
             } else {
-                if (wouldBeValidSymbol(currentCharacter, nextCharacter)) {
+                if (wouldBeValidSymbol(currentCharacter)) {
                     tokenizeBufferContents();
                     resetBuffer(nextType);
                 }
@@ -100,8 +98,12 @@ public class Tokenizer {
         return suspectedTokenType == TokenType.IDENTIFIER;
     }
 
-    private boolean wouldBeValidSymbol(char current, char next) {
-        return suspectedTokenType == TokenType.SYMBOL && TokenizerUtils.isSymbol(current);
+    private boolean wouldBeValidSymbol(char current) {
+        if (buffer.length() != 1) {
+            return false;
+        }
+
+        return TokenizerUtils.isSymbol(buffer.charAt(0)) && TokenizerUtils.isSymbol(current);
     }
 
     public static String reconstruct(List<Token> tokens) {

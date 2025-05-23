@@ -19,7 +19,7 @@ public class SymbolTests {
         var actual = tokenize("+").get(0);
 
         Assertions.assertEquals("+", actual.value);
-        Assertions.assertEquals(TokenType.SYMBOL, actual.type);
+        Assertions.assertEquals(TokenType.PLUS, actual.type);
         Assertions.assertEquals(1, actual.startPosition);
         Assertions.assertEquals(1, actual.endPosition);
     }
@@ -29,10 +29,10 @@ public class SymbolTests {
         var actual = tokenize("+=*/");
 
         var expected = new ArrayList<Token>();
-        expected.add(new Token("+", TokenType.SYMBOL, 1, 1));
-        expected.add(new Token("=", TokenType.SYMBOL, 2, 2));
-        expected.add(new Token("*", TokenType.SYMBOL, 3, 3));
-        expected.add(new Token("/", TokenType.SYMBOL, 4, 4));
+        expected.add(new Token("+", TokenType.PLUS, 1, 1));
+        expected.add(new Token("=", TokenType.EQUALS, 2, 2));
+        expected.add(new Token("*", TokenType.MULTIPLY, 3, 3));
+        expected.add(new Token("/", TokenType.DIVIDE, 4, 4));
 
         Assertions.assertEquals(expected, actual);
     }

@@ -82,7 +82,7 @@ public class IdentifierTests {
 
         var expected = new ArrayList<Token>();
         expected.add(new Token("foo1", TokenType.IDENTIFIER, 1, 4));
-        expected.add(new Token(",", TokenType.SYMBOL, 5, 5));
+        expected.add(new Token(",", TokenType.COMMA, 5, 5));
         expected.add(new Token("5", TokenType.NUMBER, 6, 6));
 
         Assertions.assertEquals(expected, actual);
@@ -116,7 +116,7 @@ public class IdentifierTests {
 
         var expected = new ArrayList<Token>();
         expected.add(new Token("xyz1", TokenType.IDENTIFIER, 1, 4));
-        expected.add(new Token(",", TokenType.SYMBOL, 5, 5));
+        expected.add(new Token(",", TokenType.COMMA, 5, 5));
         expected.add(new Token("5", TokenType.NUMBER, 6, 6));
         expected.add(new Token("foo", TokenType.IDENTIFIER, 7, 9));
 

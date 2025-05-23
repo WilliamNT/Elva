@@ -21,14 +21,29 @@ public class Token {
         final var tag = switch (type) {
             case NUMBER -> "NUMBER";
             case IDENTIFIER -> "IDENT";
-            case SYMBOL -> "SYMBOL";
+            case COMMA -> "SYMBOL";
             case WHITESPACE -> "WHITESPACE";
             case LPAREN -> "LPAREN";
             case RPAREN -> "RPAREN";
+            case PLUS -> "PLUS";
+            case MINUS -> "MINUS";
+            case MULTIPLY -> "MULTIPLY";
+            case DIVIDE -> "DIVIDE";
+            case EQUALS -> "EQUALS";
             case UNKNOWN -> "UNKNOWN";
         };
 
-        final var singleTags = Set.of(TokenType.WHITESPACE, TokenType.LPAREN, TokenType.RPAREN);
+        final var singleTags = Set.of(
+                TokenType.WHITESPACE,
+                TokenType.LPAREN,
+                TokenType.RPAREN,
+                TokenType.DIVIDE,
+                TokenType.PLUS,
+                TokenType.EQUALS,
+                TokenType.MINUS,
+                TokenType.MULTIPLY
+        );
+
         if (singleTags.contains(type)) {
             return String.format("<%s start=\"%s\" end=\"%s\"/>", tag, startPosition, endPosition);
         } else {

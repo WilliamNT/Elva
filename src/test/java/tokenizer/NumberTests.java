@@ -94,7 +94,7 @@ public class NumberTests {
         var actual = tokenize(",1");
 
         var expected = new ArrayList<Token>();
-        expected.add(new Token(",", TokenType.SYMBOL, 1,1));
+        expected.add(new Token(",", TokenType.COMMA, 1,1));
         expected.add(new Token("1", TokenType.NUMBER, 2, 2));
 
         Assertions.assertEquals(expected, actual);
@@ -106,7 +106,7 @@ public class NumberTests {
 
         var expected = new ArrayList<Token>();
         expected.add(new Token("1", TokenType.NUMBER, 1, 1));
-        expected.add(new Token(",", TokenType.SYMBOL, 2,2));
+        expected.add(new Token(",", TokenType.COMMA, 2,2));
 
         Assertions.assertEquals(expected, actual);
     }
@@ -117,7 +117,7 @@ public class NumberTests {
 
         var expected = new ArrayList<Token>();
         expected.add(new Token("1,1", TokenType.NUMBER, 1, 3));
-        expected.add(new Token(",", TokenType.SYMBOL, 4,4));
+        expected.add(new Token(",", TokenType.COMMA, 4,4));
         expected.add(new Token("1", TokenType.NUMBER, 5, 5));
 
         Assertions.assertEquals(expected, actual);
@@ -129,7 +129,7 @@ public class NumberTests {
 
         var expected = new ArrayList<Token>();
         expected.add(new Token("1,1", TokenType.NUMBER, 1, 3));
-        expected.add(new Token(",", TokenType.SYMBOL, 4,4));
+        expected.add(new Token(",", TokenType.COMMA, 4,4));
         expected.add(new Token("1,1", TokenType.NUMBER, 5, 7));
 
         Assertions.assertEquals(expected, actual);
@@ -141,7 +141,7 @@ public class NumberTests {
 
         var expected = new ArrayList<Token>();
         expected.add(new Token("1", TokenType.NUMBER, 1, 1));
-        expected.add(new Token(",", TokenType.SYMBOL, 2,2));
+        expected.add(new Token(",", TokenType.COMMA, 2,2));
         expected.add(new Token("x1", TokenType.IDENTIFIER, 3, 4));
 
         Assertions.assertEquals(expected, actual);
@@ -153,7 +153,7 @@ public class NumberTests {
 
         var expected = new ArrayList<Token>();
         expected.add(new Token("x", TokenType.IDENTIFIER, 1, 1));
-        expected.add(new Token(",", TokenType.SYMBOL, 2,2));
+        expected.add(new Token(",", TokenType.COMMA, 2,2));
         expected.add(new Token("yz", TokenType.IDENTIFIER, 3, 4));
 
         Assertions.assertEquals(expected, actual);

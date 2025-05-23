@@ -1,11 +1,21 @@
 package net.skiby.elva.tokenizer;
 
 public enum TokenType {
+    // math
     NUMBER,
-    IDENTIFIER,
-    SYMBOL,
-    WHITESPACE,
     LPAREN,
     RPAREN,
+    PLUS,
+    MINUS,
+    MULTIPLY,
+    DIVIDE,
+    EQUALS,
+
+    // generic
+    IDENTIFIER,
+    COMMA,
+
+    // ignored
+    WHITESPACE,
     UNKNOWN
 }
