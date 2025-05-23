@@ -1,5 +1,7 @@
 package net.skiby.elva.tokenizer;
 
+import java.util.Objects;
+
 public class Token {
     public final String value;
     public final TokenType type;
@@ -31,5 +33,17 @@ public class Token {
         }else {
             return String.format("<%s start=\"%s\" end=\"%s\">%s<%s/>", tag, startPosition, endPosition, value, tag);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Token token = (Token) o;
+        return startPosition == token.startPosition && endPosition == token.endPosition && Objects.equals(value, token.value) && type == token.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(value, type, startPosition, endPosition);
     }
 }

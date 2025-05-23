@@ -2,7 +2,6 @@ package net.skiby.elva.tokenizer;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class Tokenizer {
     private StringBuilder buffer = new StringBuilder();
@@ -12,39 +11,49 @@ public class Tokenizer {
     private int currentPosition;
     private String input;
 
-    public List<Token> tokenize(String input) {
+    private void init(String input) {
+        buffer.setLength(0);
+        tokens.clear();
+        suspectedTokenType = null;
+        bufferStartPosition = 0;
+        currentPosition = 0;
         this.input = input;
+    }
 
-        for (currentPosition = 0; currentPosition < input.length(); currentPosition++) {
-            char c = input.charAt(currentPosition);
-            bufferizeOrTokenize(c);
+    public List<Token> tokenize(String input) {
+        init(input);
+
+        while (currentPosition < input.length()) {
+            char currentCharacter = input.charAt(currentPosition);
+            bufferizeOrTokenize(currentCharacter);
+            currentPosition++;
         }
 
         return tokens;
     }
 
-    private void bufferizeOrTokenize(char c) {
+    private void bufferizeOrTokenize(char currentCharacter) {
         if (suspectedTokenType == null) {
-            suspectedTokenType = identifyTokenType(c);
+            suspectedTokenType = TokenizerUtils.identifyTokenType(currentCharacter);
         }
 
-        buffer.append(c);
+        buffer.append(currentCharacter);
 
-        var nextPosition = currentPosition + 1;
-        if (nextPosition < input.length()) {
-            var nextCharacter = input.charAt(nextPosition);
+        if (hasNext()) {
+            var nextCharacter = peek(1);
 
-            if (suspectedTokenType != identifyTokenType(nextCharacter)) {
-                if (wouldBeValidFloat(c, nextCharacter)) {
+            if (suspectedTokenType != TokenizerUtils.identifyTokenType(nextCharacter)) {
+                if (wouldBeValidFloat(currentCharacter, nextCharacter)) {
+                    return;
+                } else if (wouldBeValidIdentifier(currentCharacter, nextCharacter)) {
                     return;
                 }
 
                 tokenizeBuffer();
-
-                suspectedTokenType = identifyTokenType(nextCharacter);
-                bufferStartPosition = nextPosition;
+                suspectedTokenType = TokenizerUtils.identifyTokenType(nextCharacter);
+                bufferStartPosition = currentPosition + 1;
             }
-        } else if (currentPosition + 1 == input.length()) {
+        } else {
             tokenizeBuffer();
         }
     }
@@ -53,25 +62,6 @@ public class Tokenizer {
         final var token = new Token(buffer.toString(), suspectedTokenType, bufferStartPosition + 1, currentPosition + 1);
         tokens.add(token);
         buffer.setLength(0);
-    }
-
-    private TokenType identifyTokenType(char c) {
-        if (Character.isWhitespace(c)) {
-            return TokenType.WHITESPACE;
-        } else if (Character.isDigit(c)) {
-            return TokenType.NUMBER;
-        } else if (Character.isLetter(c)) {
-            return TokenType.IDENTIFIER;
-        } else if (isSymbol(c)) {
-            return TokenType.SYMBOL;
-        }
-
-        return TokenType.UNKNOWN;
-    }
-
-    private boolean isSymbol(char c) {
-        var symbols = Set.of('+', '-', '*', '/', ',');
-        return symbols.contains(c);
     }
 
     private boolean wouldBeValidFloat(char current, char next) {
@@ -83,7 +73,19 @@ public class Tokenizer {
             return false;
         }
 
-        return Character.isDigit(current) && next == ',' && Character.isDigit(input.charAt(currentPosition+2));
+        if (suspectedTokenType != TokenType.NUMBER) {
+            return false;
+        }
+
+        return Character.isDigit(current) && next == ',' && Character.isDigit(peek(2));
+    }
+
+    private boolean wouldBeValidIdentifier(char current, char next) {
+        if (TokenizerUtils.isInvalidIdentifierCharacter(current) || TokenizerUtils.isInvalidIdentifierCharacter(next)) {
+            return false;
+        }
+
+        return suspectedTokenType == TokenType.IDENTIFIER;
     }
 
     public static String reconstruct(List<Token> tokens) {
@@ -94,5 +96,13 @@ public class Tokenizer {
         }
 
         return output.toString();
+    }
+
+    private char peek(int offset) {
+        return input.charAt(currentPosition + offset);
+    }
+
+    private boolean hasNext() {
+        return currentPosition + 1 < input.length();
     }
 }
