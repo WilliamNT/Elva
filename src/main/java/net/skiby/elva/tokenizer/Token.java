@@ -31,6 +31,7 @@ public class Token {
             case DIVIDE -> "DIVIDE";
             case EQUALS -> "EQUALS";
             case UNKNOWN -> "UNKNOWN";
+            case EOF -> "EOF";
         };
 
         final var singleTags = Set.of(
@@ -41,7 +42,8 @@ public class Token {
                 TokenType.PLUS,
                 TokenType.EQUALS,
                 TokenType.MINUS,
-                TokenType.MULTIPLY
+                TokenType.MULTIPLY,
+                TokenType.EOF
         );
 
         if (singleTags.contains(type)) {

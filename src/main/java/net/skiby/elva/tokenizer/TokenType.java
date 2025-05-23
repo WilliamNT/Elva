@@ -17,5 +17,6 @@ public enum TokenType {
 
     // ignored
     WHITESPACE,
-    UNKNOWN
+    UNKNOWN,
+    EOF
 }

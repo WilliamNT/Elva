@@ -33,6 +33,7 @@ public class SymbolTests {
         expected.add(new Token("=", TokenType.EQUALS, 2, 2));
         expected.add(new Token("*", TokenType.MULTIPLY, 3, 3));
         expected.add(new Token("/", TokenType.DIVIDE, 4, 4));
+        expected.add(new Token("", TokenType.EOF, 4, 4));
 
         Assertions.assertEquals(expected, actual);
     }

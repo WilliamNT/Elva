@@ -29,6 +29,8 @@ public class Tokenizer {
             currentPosition++;
         }
 
+        tokens.add(new Token("", TokenType.EOF, currentPosition, currentPosition));
+
         return tokens;
     }
 

@@ -72,6 +72,7 @@ public class IdentifierTests {
         expected.add(new Token("foo1", TokenType.IDENTIFIER, 1, 4));
         expected.add(new Token(" ", TokenType.WHITESPACE, 5, 5));
         expected.add(new Token("foo123", TokenType.IDENTIFIER, 6, 11));
+        expected.add(new Token("", TokenType.EOF, 11, 11));
 
         Assertions.assertEquals(expected, actual);
     }
@@ -84,6 +85,7 @@ public class IdentifierTests {
         expected.add(new Token("foo1", TokenType.IDENTIFIER, 1, 4));
         expected.add(new Token(",", TokenType.COMMA, 5, 5));
         expected.add(new Token("5", TokenType.NUMBER, 6, 6));
+        expected.add(new Token("", TokenType.EOF, 6, 6));
 
         Assertions.assertEquals(expected, actual);
     }
@@ -95,6 +97,7 @@ public class IdentifierTests {
         var expected = new ArrayList<Token>();
         expected.add(new Token("1", TokenType.NUMBER, 1, 1));
         expected.add(new Token("foo", TokenType.IDENTIFIER, 2, 4));
+        expected.add(new Token("", TokenType.EOF, 4, 4));
 
         Assertions.assertEquals(expected, actual);
     }
@@ -106,6 +109,7 @@ public class IdentifierTests {
         var expected = new ArrayList<Token>();
         expected.add(new Token("1,5", TokenType.NUMBER, 1, 3));
         expected.add(new Token("foo", TokenType.IDENTIFIER, 4, 6));
+        expected.add(new Token("", TokenType.EOF, 6, 6));
 
         Assertions.assertEquals(expected, actual);
     }
@@ -119,6 +123,8 @@ public class IdentifierTests {
         expected.add(new Token(",", TokenType.COMMA, 5, 5));
         expected.add(new Token("5", TokenType.NUMBER, 6, 6));
         expected.add(new Token("foo", TokenType.IDENTIFIER, 7, 9));
+        expected.add(new Token("", TokenType.EOF, 9, 9));
+
 
         Assertions.assertEquals(expected, actual);
     }

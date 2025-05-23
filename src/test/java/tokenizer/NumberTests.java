@@ -96,6 +96,8 @@ public class NumberTests {
         var expected = new ArrayList<Token>();
         expected.add(new Token(",", TokenType.COMMA, 1,1));
         expected.add(new Token("1", TokenType.NUMBER, 2, 2));
+        expected.add(new Token("", TokenType.EOF, 2, 2));
+
 
         Assertions.assertEquals(expected, actual);
     }
@@ -107,6 +109,7 @@ public class NumberTests {
         var expected = new ArrayList<Token>();
         expected.add(new Token("1", TokenType.NUMBER, 1, 1));
         expected.add(new Token(",", TokenType.COMMA, 2,2));
+        expected.add(new Token("", TokenType.EOF, 2, 2));
 
         Assertions.assertEquals(expected, actual);
     }
@@ -119,6 +122,7 @@ public class NumberTests {
         expected.add(new Token("1,1", TokenType.NUMBER, 1, 3));
         expected.add(new Token(",", TokenType.COMMA, 4,4));
         expected.add(new Token("1", TokenType.NUMBER, 5, 5));
+        expected.add(new Token("", TokenType.EOF, 5, 5));
 
         Assertions.assertEquals(expected, actual);
     }
@@ -131,6 +135,7 @@ public class NumberTests {
         expected.add(new Token("1,1", TokenType.NUMBER, 1, 3));
         expected.add(new Token(",", TokenType.COMMA, 4,4));
         expected.add(new Token("1,1", TokenType.NUMBER, 5, 7));
+        expected.add(new Token("", TokenType.EOF, 7, 7));
 
         Assertions.assertEquals(expected, actual);
     }
@@ -143,6 +148,7 @@ public class NumberTests {
         expected.add(new Token("1", TokenType.NUMBER, 1, 1));
         expected.add(new Token(",", TokenType.COMMA, 2,2));
         expected.add(new Token("x1", TokenType.IDENTIFIER, 3, 4));
+        expected.add(new Token("", TokenType.EOF, 4, 4));
 
         Assertions.assertEquals(expected, actual);
     }
@@ -155,6 +161,7 @@ public class NumberTests {
         expected.add(new Token("x", TokenType.IDENTIFIER, 1, 1));
         expected.add(new Token(",", TokenType.COMMA, 2,2));
         expected.add(new Token("yz", TokenType.IDENTIFIER, 3, 4));
+        expected.add(new Token("", TokenType.EOF, 4, 4));
 
         Assertions.assertEquals(expected, actual);
     }
