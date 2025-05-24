@@ -18,10 +18,10 @@ public class SymbolTests {
     void singleSymbolIsRecognized() {
         var actual = tokenize("+").get(0);
 
-        Assertions.assertEquals("+", actual.value);
-        Assertions.assertEquals(TokenType.PLUS, actual.type);
-        Assertions.assertEquals(1, actual.startPosition);
-        Assertions.assertEquals(1, actual.endPosition);
+        Assertions.assertEquals("+", actual.value());
+        Assertions.assertEquals(TokenType.PLUS, actual.type());
+        Assertions.assertEquals(1, actual.startPosition());
+        Assertions.assertEquals(1, actual.endPosition());
     }
 
     @Test

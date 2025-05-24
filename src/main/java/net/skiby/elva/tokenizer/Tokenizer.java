@@ -112,7 +112,7 @@ public class Tokenizer {
         var output = new StringBuilder();
 
         for (Token token : tokens) {
-            output.append(token.value);
+            output.append(token.value());
         }
 
         return output.toString();

@@ -3,7 +3,6 @@ package tokenizer;
 import net.skiby.elva.tokenizer.Token;
 import net.skiby.elva.tokenizer.TokenType;
 import net.skiby.elva.tokenizer.Tokenizer;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
@@ -15,10 +14,10 @@ public class BasicTests {
         var t = new Tokenizer();
         var tokens = t.tokenize("");
 
-        Assertions.assertEquals(
-                new ArrayList<Token>(),
-                tokens
-        );
+        var expected = new ArrayList<Token>();
+        expected.add(new Token("", TokenType.EOF, 0, 0));
+
+        Assertions.assertEquals(expected, tokens);
     }
 
     @Test
@@ -29,10 +28,10 @@ public class BasicTests {
         for (char c : values) {
             var tokens = t.tokenize(Character.toString(c));
 
-            Assertions.assertEquals(1, tokens.size());
-            Assertions.assertEquals(Character.toString(c), tokens.get(0).value);
-            Assertions.assertEquals(1, tokens.get(0).startPosition);
-            Assertions.assertEquals(1, tokens.get(0).endPosition);
+            Assertions.assertEquals(2, tokens.size()); // because of EOF token
+            Assertions.assertEquals(Character.toString(c), tokens.get(0).value());
+            Assertions.assertEquals(1, tokens.get(0).startPosition());
+            Assertions.assertEquals(1, tokens.get(0).endPosition());
         }
     }
 
@@ -50,6 +49,8 @@ public class BasicTests {
                 1,
                 3
         ));
+
+        expected.add(new Token("", TokenType.EOF, 3, 3));
 
         Assertions.assertEquals(expected, actual);
     }

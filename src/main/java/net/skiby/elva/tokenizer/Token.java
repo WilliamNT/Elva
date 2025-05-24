@@ -3,18 +3,7 @@ package net.skiby.elva.tokenizer;
 import java.util.Objects;
 import java.util.Set;
 
-public class Token {
-    public final String value;
-    public final TokenType type;
-    public final int startPosition;
-    public final int endPosition;
-
-    public Token(String value, TokenType type, int startPosition, int endPosition) {
-        this.value = value;
-        this.type = type;
-        this.startPosition = startPosition;
-        this.endPosition = endPosition;
-    }
+public record Token(String value, TokenType type, int startPosition, int endPosition) {
 
     @Override
     public String toString() {
@@ -60,8 +49,4 @@ public class Token {
         return startPosition == token.startPosition && endPosition == token.endPosition && Objects.equals(value, token.value) && type == token.type;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(value, type, startPosition, endPosition);
-    }
 }
