@@ -7,12 +7,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BasicTests {
+    private List<Token> tokenize(String s) {
+        return new Tokenizer().tokenize(s);
+    }
+
     @Test
     void emptyInputProducesEmptyOutputArray() {
-        var t = new Tokenizer();
-        var tokens = t.tokenize("");
+        var tokens = tokenize("");
 
         var expected = new ArrayList<Token>();
         expected.add(new Token("", TokenType.EOF, 0, 0));
@@ -22,11 +26,9 @@ public class BasicTests {
 
     @Test
     void singleCharacterInputIsRecognizedCorrectly() {
-        var t = new Tokenizer();
-
         var values = new char[]{'a', '1', '#', '+', ' ', '\t', '\n'};
         for (char c : values) {
-            var tokens = t.tokenize(Character.toString(c));
+            var tokens = tokenize(Character.toString(c));
 
             Assertions.assertEquals(2, tokens.size()); // because of EOF token
             Assertions.assertEquals(Character.toString(c), tokens.get(0).value());
@@ -53,5 +55,15 @@ public class BasicTests {
         expected.add(new Token("", TokenType.EOF, 3, 3));
 
         Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void reconstructionWorks() {
+        var inputString = "tokenizers are very cool 12345 / 5 * 5 -- asd1230 _ 023";
+        var tokens = tokenize(inputString);
+
+        var reconstructedString = Tokenizer.reconstruct(tokens);
+
+        Assertions.assertEquals(inputString, reconstructedString);
     }
 }

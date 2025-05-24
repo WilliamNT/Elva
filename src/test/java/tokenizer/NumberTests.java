@@ -165,4 +165,32 @@ public class NumberTests {
 
         Assertions.assertEquals(expected, actual);
     }
+
+    @Test
+    void negativeNumbersAreRecognizedAsNumberToken() {
+        var testValues = new String[]{"-5", "-1,2", "-1,234", "-1234"};
+
+        for (String testValue : testValues) {
+            var tokens = tokenize(testValue);
+
+            var expected = new ArrayList<Token>();
+            expected.add(new Token(testValue, TokenType.NUMBER, 1, testValue.length()));
+            expected.add(new Token("", TokenType.EOF, testValue.length(), testValue.length()));
+
+            Assertions.assertEquals(expected, tokens);
+        }
+    }
+
+    @Test
+    void subtractionDoesntGetConfusedAsNegativeNumbers() {
+        var tokens = tokenize("5--5");
+
+        var expected = new ArrayList<Token>();
+        expected.add(new Token("5", TokenType.NUMBER, 1, 1));
+        expected.add(new Token("-", TokenType.MINUS, 2, 2));
+        expected.add(new Token("-5", TokenType.NUMBER, 3, 4));
+        expected.add(new Token("", TokenType.EOF, 4, 4));
+
+        Assertions.assertEquals(expected, tokens);
+    }
 }

@@ -50,6 +50,8 @@ public class Tokenizer {
                     return;
                 } else if (wouldBeValidIdentifier(currentCharacter, nextCharacter)) {
                     return;
+                } else if (wouldBeValidNegativeNumber(currentCharacter, nextCharacter)) {
+                    return;
                 }
 
                 tokenizeBufferContents();
@@ -106,6 +108,22 @@ public class Tokenizer {
         }
 
         return TokenizerUtils.isSymbol(buffer.charAt(0)) && TokenizerUtils.isSymbol(current);
+    }
+
+    private boolean wouldBeValidNegativeNumber(char current, char next) {
+        if (buffer.isEmpty()) {
+            return true;
+        }
+
+        var currentIsMinus = TokenizerUtils.identifyTokenType(current) == TokenType.MINUS;
+        var nextIsNumber = TokenizerUtils.identifyTokenType(next) == TokenType.NUMBER;
+
+        if (currentIsMinus && nextIsNumber) {
+            suspectedTokenType = TokenType.NUMBER;
+            return true;
+        }
+
+        return false;
     }
 
     public static String reconstruct(List<Token> tokens) {
