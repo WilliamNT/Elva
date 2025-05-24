@@ -129,4 +129,18 @@ public class IdentifierTests {
         Assertions.assertEquals(expected, actual);
     }
 
+    @Test
+    void underscoresAreRecognizedAsPartOfIdentifier() {
+        var testValues = new String[]{"_hello_", "_hello", "hello_", "h_e_l_l_o", "_", "__", "hello_5", "hello5_", "he5llo", "he5_llo", "he_5llo", "_5hello", "_5", "_x", "h__e__l__l__o", "h3110_"};
+
+        for (String testValue : testValues) {
+            var actualTokens = tokenize(testValue);
+
+            var expected = new ArrayList<Token>();
+            expected.add(new Token(testValue, TokenType.IDENTIFIER, 1, testValue.length()));
+            expected.add(new Token("", TokenType.EOF, testValue.length(), testValue.length()));
+
+            Assertions.assertEquals(expected, actualTokens);
+        }
+    }
 }

@@ -19,7 +19,7 @@ public class TokenizerUtils {
             return TokenType.WHITESPACE;
         } else if (Character.isDigit(c)) {
             return TokenType.NUMBER;
-        } else if (Character.isLetter(c)) {
+        } else if (Character.isLetter(c) || c == '_') {
             return TokenType.IDENTIFIER;
         } else if (isSymbol(c)) {
             return RESERVED_SYMBOLS.get(c);
@@ -33,6 +33,6 @@ public class TokenizerUtils {
     }
 
     public static boolean isInvalidIdentifierCharacter(char c) {
-        return !Character.isDigit(c) && !Character.isLetter(c);
+        return !Character.isDigit(c) && !Character.isLetter(c) && c != '_';
     }
 }
