@@ -1,4 +1,4 @@
-package tokenizer;
+package net.skiby.elva.tokenizer;
 
 import net.skiby.elva.tokenizer.Token;
 import net.skiby.elva.tokenizer.TokenType;
