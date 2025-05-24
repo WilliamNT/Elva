@@ -28,3 +28,5 @@ So, for example the input `x = y * 5` would result in the following tokens:
 <NUMBER start="9" end="9">5</NUMBER>
 <EOF start="9" end="9"/>
 ```
+
+The tokenizer is tested with unit tests.
