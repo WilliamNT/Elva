@@ -51,6 +51,7 @@ public class Tokenizer {
                 } else if (wouldBeValidIdentifier(currentCharacter, nextCharacter)) {
                     return;
                 } else if (wouldBeValidNegativeNumber(currentCharacter, nextCharacter)) {
+                    suspectedTokenType = TokenType.NUMBER;
                     return;
                 }
 
@@ -118,12 +119,7 @@ public class Tokenizer {
         var currentIsMinus = TokenizerUtils.identifyTokenType(current) == TokenType.MINUS;
         var nextIsNumber = TokenizerUtils.identifyTokenType(next) == TokenType.NUMBER;
 
-        if (currentIsMinus && nextIsNumber) {
-            suspectedTokenType = TokenType.NUMBER;
-            return true;
-        }
-
-        return false;
+        return currentIsMinus && nextIsNumber;
     }
 
     public static String reconstruct(List<Token> tokens) {
