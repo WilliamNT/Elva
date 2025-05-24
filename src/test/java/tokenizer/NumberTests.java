@@ -20,22 +20,22 @@ public class NumberTests {
 
         Assertions.assertEquals(
                 "1",
-                actual.get(0).value
+                actual.get(0).value()
         );
 
         Assertions.assertEquals(
                 TokenType.NUMBER,
-                actual.get(0).type
+                actual.get(0).type()
         );
 
         Assertions.assertEquals(
                 1,
-                actual.get(0).startPosition
+                actual.get(0).startPosition()
         );
 
         Assertions.assertEquals(
                 1,
-                actual.get(0).endPosition
+                actual.get(0).endPosition()
         );
     }
 
@@ -45,22 +45,22 @@ public class NumberTests {
 
         Assertions.assertEquals(
                 "123456789",
-                actual.get(0).value
+                actual.get(0).value()
         );
 
         Assertions.assertEquals(
                 TokenType.NUMBER,
-                actual.get(0).type
+                actual.get(0).type()
         );
 
         Assertions.assertEquals(
                 1,
-                actual.get(0).startPosition
+                actual.get(0).startPosition()
         );
 
         Assertions.assertEquals(
                 9,
-                actual.get(0).endPosition
+                actual.get(0).endPosition()
         );
     }
 
@@ -70,22 +70,22 @@ public class NumberTests {
 
         Assertions.assertEquals(
                 "1,2",
-                actual.get(0).value
+                actual.get(0).value()
         );
 
         Assertions.assertEquals(
                 TokenType.NUMBER,
-                actual.get(0).type
+                actual.get(0).type()
         );
 
         Assertions.assertEquals(
                 1,
-                actual.get(0).startPosition
+                actual.get(0).startPosition()
         );
 
         Assertions.assertEquals(
                 3,
-                actual.get(0).endPosition
+                actual.get(0).endPosition()
         );
     }
 
