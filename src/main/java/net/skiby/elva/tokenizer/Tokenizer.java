@@ -46,9 +46,7 @@ public class Tokenizer {
             var nextType = TokenizerUtils.identifyTokenType(nextCharacter);
 
             if (suspectedTokenType != nextType) {
-                if (wouldBeValidFloat(currentCharacter, nextCharacter)) {
-                    return;
-                } else if (wouldBeValidIdentifier(currentCharacter, nextCharacter)) {
+                if (wouldBeValidFloat(currentCharacter, nextCharacter) || wouldBeValidIdentifier(currentCharacter, nextCharacter)) {
                     return;
                 } else if (wouldBeValidNegativeNumber(currentCharacter, nextCharacter)) {
                     suspectedTokenType = TokenType.NUMBER;
